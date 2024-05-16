@@ -1,15 +1,17 @@
 # AWS CLI 1Password Integration Script
 
-This script allows you to manage AWS credentials stored in 1Password and use them with the AWS CLI. It provides two main functionalities:
+This script lets you use 1Password to manage your AWS CLI credentials.
+
+It provides two main functionalities:
 
 1. Allows the AWS CLI to source credentials directly from 1Password.
 2. Manages your `~/.aws/credentials` and `~/.aws/config` files based on items stored in 1Password.
 
 ## Prerequisites
 
-- AWS CLI
-- 1Password CLI (`op`)
-- `jq` for JSON processing
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
+- [jq](https://jqlang.github.io/jq/download/)
 
 # Usage
 - Prepare your 1Password items
