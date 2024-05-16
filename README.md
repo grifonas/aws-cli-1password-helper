@@ -40,6 +40,7 @@ Your 1Password items must contain the following fields and tags:
    ```
 
    This will prepare your `~/.aws/credentials` and `~/.aws/config`.
+
    This command can be run every time you add a new AWS cred. pair to your 1Password.
 
 
