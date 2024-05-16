@@ -23,11 +23,12 @@ Your 1Password items must contain the following fields and tags:
 
 ### Fields:
 **Required**:
-- `access key id`
-- `secret access key`
-- `aws-cli-profile`
+  - `access key id`
+  - `secret access key`
+  - `aws-cli-profile`
+
 **Optional**:
-- `default-region`
+  - `default-region`
 
 ### Tags:
 - `aws_cred_for_sourcing`
