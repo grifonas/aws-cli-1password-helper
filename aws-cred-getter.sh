@@ -25,7 +25,7 @@ function list_aws_cred_items(){
 
 function build_cred_file(){
   ITEM_ID="${1}"
-  FULL_ITEM=$(op item get ${ITEM_ID} --format json)
+  FULL_ITEM=$(op item get ${ITEM_ID} --reveal --format json)
   ITEM_TITLE=$(echo $FULL_ITEM | jq -r '.title')
   PROFILE_NAME=$(echo $FULL_ITEM | jq -r ".fields[] | select(.label == \"${ONE_PASS_AWS_PROFILE_FIELD}\") | .value" 2>&1)
   REGION_NAME=$(echo $FULL_ITEM | jq -r ".fields[] | select(.label == \"${ONE_PASS_AWS_REGION_FIELD}\") | .value" 2>&1)
@@ -56,8 +56,8 @@ function build_cred_file(){
 
 function get_cred(){
   ONE_PASSWORD_ITEM="${1}"
-  KEY_ID=$(op item get "${ONE_PASSWORD_ITEM}" --fields label='access key id')
-  SECRET_KEY=$(op item get "${ONE_PASSWORD_ITEM}" --fields label='secret access key')
+  KEY_ID=$(op item get "${ONE_PASSWORD_ITEM}" --reveal --fields label='access key id')
+  SECRET_KEY=$(op item get "${ONE_PASSWORD_ITEM}" --reveal --fields label='secret access key')
   echo -e {\"Version\": 1, \"AccessKeyId\": \"$KEY_ID\", \"SecretAccessKey\": \"$SECRET_KEY\"}
 }
 if [[ -z ${1} ]]; then
