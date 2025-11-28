@@ -12,12 +12,20 @@ PASS_TO_AWS_CRED_FILE="${HOME}/.aws/credentials"
 PASS_TO_AWS_CONFIG_FILE="${HOME}/.aws/config"
 
 function backup_aws_cred_file(){
-  echo "Backing up ${PASS_TO_AWS_CRED_FILE}"
-  cp ${PASS_TO_AWS_CRED_FILE} ${PASS_TO_AWS_CRED_FILE}-$(date +%Y-%m-%d-%H-%M-%S).bak
+  if [[ -f ${PASS_TO_AWS_CRED_FILE} ]]; then
+    echo "Backing up ${PASS_TO_AWS_CRED_FILE}"
+    cp ${PASS_TO_AWS_CRED_FILE} ${PASS_TO_AWS_CRED_FILE}-$(date +%Y-%m-%d-%H-%M-%S).bak
+  else
+    echo "No existing credentials file to backup"
+  fi
 }
 function backup_aws_config_file(){
-  echo "Backing up ${PASS_TO_AWS_CONFIG_FILE}"
-  cp ${PASS_TO_AWS_CONFIG_FILE} ${PASS_TO_AWS_CONFIG_FILE}-$(date +%Y-%m-%d-%H-%M-%S).bak
+  if [[ -f ${PASS_TO_AWS_CONFIG_FILE} ]]; then
+    echo "Backing up ${PASS_TO_AWS_CONFIG_FILE}"
+    cp ${PASS_TO_AWS_CONFIG_FILE} ${PASS_TO_AWS_CONFIG_FILE}-$(date +%Y-%m-%d-%H-%M-%S).bak
+  else
+    echo "No existing config file to backup"
+  fi
 }
 function list_aws_cred_items(){
   op item list --tags ${AWS_CRED_ITEM_TAG} | awk '{print $1}' | grep -v ID
@@ -75,6 +83,8 @@ if [[ "${1}" == "build_awc_cli_cred_file" ]]; then
   rm -f ${PASS_TO_AWS_CRED_FILE}
   backup_aws_config_file
   rm -f ${PASS_TO_AWS_CONFIG_FILE}
+  # Ensure ~/.aws directory exists
+  mkdir -p "$(dirname ${PASS_TO_AWS_CRED_FILE})"
   for ITEM in $(list_aws_cred_items); do
     build_cred_file "${ITEM}"
   done
